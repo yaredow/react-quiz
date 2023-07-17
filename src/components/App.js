@@ -10,6 +10,8 @@ import Progress from "./Progress.js";
 import FinishScreen from "./FinishScreen.js";
 import Footer from "./Footer.js";
 import Timer from "./Timer.js";
+
+const SEC_PER_QUESTIONS = 30;
 const initialState = {
   questions: [],
   // "loading", "error", "ready", "active", "finsihed"
@@ -29,7 +31,11 @@ function reducer(state, action) {
     case "dataFailed":
       return { ...state, status: "error" };
     case "start":
-      return { ...state, status: "active" };
+      return {
+        ...state,
+        status: "active",
+        secondsRemaining: state.questions.length * SEC_PER_QUESTIONS,
+      };
     case "newAnswer":
       return {
         ...state,
